@@ -150,9 +150,6 @@ def logout(d):
 	logout_button = d.find_element_by_id("uitloggen")
 	logout_button.click()
 
-username = "2044404"
-password = "h62wi"
-
 file = open("ww.txt", "r")
 infos = file.read().split("\n")
 infos = [info.split(",") for info in infos][:-1]
