@@ -1,6 +1,1 @@
-naam = input("Vul je naam in:\n")
-gebr = input("Vul je gebruikersnaam in:\n")
-ww = input("Vul je wachtwoord in:\n")
-wwtxt = open('ww.txt', 'a')
-wwtxt.write(naam+','+gebr+','+ww+'\n')
-wwtxt.close()
+open('ww.txt', 'a').write(input("Vul je naam in:\n")+','+input("Vul je gebruikersnaam in:\n")+','+input("Vul je wachtwoord in:\n")+'\n')
