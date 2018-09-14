@@ -167,3 +167,6 @@ for [username,password] in infos:
 	make_file(infodict, dagenlijst, username)
 
 	d.quit()
+	
+#ik heb iets gedaan
+
