@@ -37,7 +37,7 @@ def main_loop():
 	stok_dict = vergelijk_uren(info_dict, user_lijst, dagen)
 	stok_rooster = stokbroodrooster(stok_dict, dagen, user_lijst)
 	maak_file(stok_rooster)
-	return info_dict, user_lijst, dagen
+	return# info_dict, user_lijst, dagen
 
 def bereken_dagen(info_dict, user_lijst):
 	dagen_info_lijst = []
