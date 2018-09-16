@@ -170,9 +170,36 @@ def stokbroodrooster(stok_dict, dagen, user_lijst):
     return stok_rooster
 
 def maak_file(stok_rooster):
-    file = open("stokbrooster.html", "w")
-    file.write(stok_rooster)
-    file.close()
+	input('\n\nmaak_file\n\n')
+	rooster = stok_rooster.split('\n')
+	rooster = [r.split('		') for r in rooster]
+	tekst = '''<head>
+<style>
+th, td {
+	padding: 5px;
+	text-align: left;
+}
+caption {
+	padding: 5px;
+	text-align: left;
+}
+</style>
+</head>
+<table>
+'''
+	for r in rooster:
+		regel = ''
+		r = ['<th>'+i+'</th>' for i in r]
+		for i in r:
+			regel += i
+		tekst += '<tr>'+regel+'</tr>\n'
+	tekst += '</table>'
+	print(tekst)
+	
+	file = open("stokbrooster.html", "w")
+	file.write(tekst)
+	file.close()
+
 
 info_dict, user_lijst, dagen = main_loop()
 print(info_dict, user_lijst, dagen)
