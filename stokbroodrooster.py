@@ -141,18 +141,16 @@ def split_tu(tu):
     return tu_list
 
 def stokbroodrooster(stok_dict, dagen, user_lijst, namen_lijst):
+    file = open("ww.txt", "r")
+    infos = file.read().split("\n")
+    infos = [info.split(",") for info in infos][:-1]
     stok_rooster = "\t\t"
     for dag in dagen:
         stok_rooster += "\t\t" + dag[0] + dag[1]
     #print(stok_rooster)
     #input("stokrooster")
-    for u in range(len(user_lijst)):
+    for [naam,user,password] in infos:
         stok_rooster += "\n"
-        user = user_lijst[u]
-        if u < len(namen_lijst) - 1:
-            naam = namen_lijst[u+1]
-        else:
-            naam = namen_lijst[0]
         stok_rooster += user
         stok_rooster += "\t\t" + naam
         for i in range(6):
