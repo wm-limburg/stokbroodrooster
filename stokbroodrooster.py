@@ -206,7 +206,7 @@ caption {
 	tekst += '</table>'
 	print(tekst)
 	
-	file = open("stokbrooster.html", "w")
+	file = open("index.html", "w")
 	file.write(tekst)
 	file.close()
 
