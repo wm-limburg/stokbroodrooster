@@ -171,7 +171,7 @@ for [name,username,password] in infos:
 	d, soup = make_soup(d)
 	logout(d)
 	infodict, dagenlijst = soup_analyse(d, soup)
-	print(infodict, dagenlijst)
+	#print(infodict, dagenlijst)
 	make_file(infodict, dagenlijst, username)
 	namen_lijst += [name]
 
