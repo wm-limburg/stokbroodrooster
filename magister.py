@@ -150,11 +150,22 @@ def logout(d):
 	logout_button = d.find_element_by_id("uitloggen")
 	logout_button.click()
 
+def insert_namen(namen_lijst):
+	rfile = open("mstokbroodrooster.txt", "r")
+	tekst = rfile.read()
+	rfile.close()
+	b = tekst.find("!*!")
+	rooster = tekst[b:len(tekst)]
+	wfile = open("mstokbroodrooster.txt", "w")
+	wfile.write(str(namen_lijst) + "\n" + rooster)
+	wfile.close()
+
 file = open("ww.txt", "r")
 infos = file.read().split("\n")
 infos = [info.split(",") for info in infos][:-1]
+namen_lijst = []
 
-for [username,password] in infos:
+for [name,username,password] in infos:
 	#username, password = enter_info()
 	d = login(username, password)
 	d, soup = make_soup(d)
@@ -162,8 +173,11 @@ for [username,password] in infos:
 	infodict, dagenlijst = soup_analyse(d, soup)
 	print(infodict, dagenlijst)
 	make_file(infodict, dagenlijst, username)
+	namen_lijst += [name]
 
 	d.quit()
-	
+
+insert_namen(namen_lijst)
+
 #ik heb iets gedaan
 
