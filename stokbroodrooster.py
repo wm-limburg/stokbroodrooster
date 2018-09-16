@@ -4,72 +4,72 @@
 import ast
 
 def ontleed_rooster(rooster):
-	vorig_enter = 0
-	regel_lijst = []
-	for line in range(7):
-		enter = rooster.find("\n", vorig_enter+1)
-		regel = rooster[vorig_enter:enter+1]
-		if regel.find("[") != -1:
-			#print(regel)
-			regel = regel[2:len(regel)-2]
-			#print(regel)
-		else:
-			regel = regel[:len(regel)-2]
-		vorig_enter = enter
-		regel_lijst += [regel]
-	userinfo = regel_lijst[0]
-	eind = userinfo.find(":")
-	user = userinfo[:eind]
-	return regel_lijst, user
+    vorig_enter = 0
+    regel_lijst = []
+    for line in range(7):
+        enter = rooster.find("\n", vorig_enter+1)
+        regel = rooster[vorig_enter:enter+1]
+        if regel.find("[") != -1:
+            #print(regel)
+            regel = regel[2:len(regel)-2]
+            #print(regel)
+        else:
+            regel = regel[:len(regel)-2]
+        vorig_enter = enter
+        regel_lijst += [regel]
+    userinfo = regel_lijst[0]
+    eind = userinfo.find(":")
+    user = userinfo[:eind]
+    return regel_lijst, user
 
 def main_loop():
-	file = open("mstokbroodrooster.txt", "r")
-	info = file.read()
-	info_dict = {}
-	user_lijst = []
-	begin = info.find("!*!") + 4
-	namen_lijst = info[:begin - 4]
-	namen_lijst = ast.literal_eval(namen_lijst)
-	while info.find("!*!", begin) != -1:
-		eind = info.find("!*!", begin)
-		rooster = info[begin:eind]
-		begin = eind + 4
-		regel_lijst, user = ontleed_rooster(rooster)
-		user_lijst += [user]
-		info_dict[user] = regel_lijst
-	dagen = bereken_dagen(info_dict, user_lijst)
-	stok_dict = vergelijk_uren(info_dict, user_lijst, dagen)
-	stok_rooster = stokbroodrooster(stok_dict, dagen, user_lijst, namen_lijst)
-	maak_file(stok_rooster)
-	return# info_dict, user_lijst, dagen
+    file = open("mstokbroodrooster.txt", "r")
+    info = file.read()
+    info_dict = {}
+    user_lijst = []
+    begin = info.find("!*!") + 4
+    namen_lijst = info[:begin - 4]
+    namen_lijst = ast.literal_eval(namen_lijst)
+    while info.find("!*!", begin) != -1:
+        eind = info.find("!*!", begin)
+        rooster = info[begin:eind]
+        begin = eind + 4
+        regel_lijst, user = ontleed_rooster(rooster)
+        user_lijst += [user]
+        info_dict[user] = regel_lijst
+    dagen = bereken_dagen(info_dict, user_lijst)
+    stok_dict = vergelijk_uren(info_dict, user_lijst, dagen)
+    stok_rooster = stokbroodrooster(stok_dict, dagen, user_lijst, namen_lijst)
+    maak_file(stok_rooster)
+    return# info_dict, user_lijst, dagen
 
 def bereken_dagen(info_dict, user_lijst):
-	dagen_info_lijst = []
-	dagen_lijst = ["maandag", "dinsdag", "woensdag", "donderdag", "vrijdag"]
-	for user in user_lijst:
-		info = info_dict[user]
-		user_info = info[0]
-		begin = user_info.find(": ") + 2
-		dagen_info = user_info[begin:]
-		if dagen_info not in dagen_info_lijst and len(dagen_info_lijst) != 0:
-			return "dagen niet gelijk"
-		dagen_info_lijst += [dagen_info]
-		spatie = dagen_info.find(" ")
-		dag = dagen_info[:spatie]
-		#print(dag)
-	for i in range(len(dagen_lijst)):
-		#print(dag, dagen_lijst[i], i)
-		if dag == dagen_lijst[i]:
-			dag_nummer = i
-	#input("e")
-	dagen_volgorde = []
-	for i in range(dag_nummer, dag_nummer + 5):
-		if i > 4:
-			i = i - 5
-		dagen_volgorde += [dagen_lijst[i]]
-	dagen_volgorde += [dagen_volgorde[0]]
-	#print(dag_nummer, dagen_volgorde)
-	return dagen_volgorde
+    dagen_info_lijst = []
+    dagen_lijst = ["maandag", "dinsdag", "woensdag", "donderdag", "vrijdag"]
+    for user in user_lijst:
+        info = info_dict[user]
+        user_info = info[0]
+        begin = user_info.find(": ") + 2
+        dagen_info = user_info[begin:]
+        if dagen_info not in dagen_info_lijst and len(dagen_info_lijst) != 0:
+            return "dagen niet gelijk"
+        dagen_info_lijst += [dagen_info]
+        spatie = dagen_info.find(" ")
+        dag = dagen_info[:spatie]
+        #print(dag)
+    for i in range(len(dagen_lijst)):
+        #print(dag, dagen_lijst[i], i)
+        if dag == dagen_lijst[i]:
+            dag_nummer = i
+    #input("e")
+    dagen_volgorde = []
+    for i in range(dag_nummer, dag_nummer + 5):
+        if i > 4:
+            i = i - 5
+        dagen_volgorde += [dagen_lijst[i]]
+    dagen_volgorde += [dagen_volgorde[0]]
+    #print(dag_nummer, dagen_volgorde)
+    return dagen_volgorde
 
 def vergelijk_uren(info_dict, user_lijst, dagen):
     if dagen == "dagen niet gelijk":
@@ -127,18 +127,18 @@ def vergelijk_uren(info_dict, user_lijst, dagen):
     return dag_dict
 
 def split_tu(tu):
-	tu_list = []
-	komma = 0
-	while komma != -1:
-		komma = tu.find(", ")
-		if komma == -1:
-			tu_list += [tu]
-		else:
-			tu_list += [tu[0:komma]]
-			tu = tu[komma+2:len(tu)]
-		#print(tu, tu_list)
-		#input("komma")
-	return tu_list
+    tu_list = []
+    komma = 0
+    while komma != -1:
+        komma = tu.find(", ")
+        if komma == -1:
+            tu_list += [tu]
+        else:
+            tu_list += [tu[0:komma]]
+            tu = tu[komma+2:len(tu)]
+        #print(tu, tu_list)
+        #input("komma")
+    return tu_list
 
 def stokbroodrooster(stok_dict, dagen, user_lijst, namen_lijst):
     stok_rooster = "\t\t"
@@ -149,12 +149,12 @@ def stokbroodrooster(stok_dict, dagen, user_lijst, namen_lijst):
     for u in range(len(user_lijst)):
         stok_rooster += "\n"
         user = user_lijst[u]
-	if u < len(namen_lijst) - 1:
-	    naam = namen_lijst[u+1]
-	else:
-	    naam = namen_lijst[0]
-	stok_rooster += user
-	stok_rooster += "\t\t" + naam
+        if u < len(namen_lijst) - 1:
+            naam = namen_lijst[u+1]
+        else:
+            naam = namen_lijst[0]
+        stok_rooster += user
+        stok_rooster += "\t\t" + naam
         for i in range(6):
             dag = dagen[i]
             if i == 5:
@@ -167,11 +167,11 @@ def stokbroodrooster(stok_dict, dagen, user_lijst, namen_lijst):
                     newtu = []
                     for tu in tussenuren:
                         newtu += [int(tu)]
-                    for i in range(len(newtu)):
+                    for t in range(len(newtu)):
                         minimum = min(newtu)
                         pos = newtu.index(minimum)
                         tu = newtu.pop(pos)
-                        if i == 0:
+                        if t == 0:
                             stok_rooster += str(tu)
                         else:
                             stok_rooster += ", " + str(tu)
@@ -210,7 +210,6 @@ caption {
 	file.write(tekst)
 	file.close()
 
-
-#info_dict, user_lijst, dagen = 
+#info_dict, user_lijst, dagen =
 #main_loop()
 #print(info_dict, user_lijst, dagen)
