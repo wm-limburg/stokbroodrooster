@@ -82,7 +82,7 @@ def vergelijk_uren(info_dict, user_lijst, dagen):
             dag = "next" + dag
         tu_dict = {}
         tu_totaal_lijst = []
-        print("\n" + dag + "\n")
+        #print("\n" + dag + "\n")
         for user in user_lijst:
             info = info_dict[user]
             tussenuren = info[i + 1]
@@ -98,13 +98,13 @@ def vergelijk_uren(info_dict, user_lijst, dagen):
                 #input("vergelijk_uren")
         dag_dict[dag] = (tu_totaal_lijst, tu_dict)
         ##################
-        print(tu_totaal_lijst)
+        #print(tu_totaal_lijst)
         verg_dict = {}
         for uur in tu_totaal_lijst:
             users = tu_dict[uur]
             begin = 0
             komma = users.find(", ")
-            print(users)
+            #print(users)
             while komma != -1:
                 komma = users.find(", ", begin)
                 if komma == -1:
@@ -119,11 +119,11 @@ def vergelijk_uren(info_dict, user_lijst, dagen):
                     verg_dict[user] = user_tu
                 except:
                     verg_dict[user] = [uur]
-            print(verg_dict)
-            input("hoi")
+            #print(verg_dict)
+            #input("hoi")
         dag_dict[dag] = verg_dict
-    print("\n\n\n", dag_dict, "\n\n\n", sep="")
-    input("dag_dict\n\n")
+    #print("\n\n\n", dag_dict, "\n\n\n", sep="")
+    #input("dag_dict\n\n")
     return dag_dict
 
 def split_tu(tu):
@@ -180,7 +180,7 @@ def stokbroodrooster(stok_dict, dagen, user_lijst, namen_lijst):
     return stok_rooster
 
 def maak_file(stok_rooster):
-	input('\n\nmaak_file\n\n')
+	#input('\n\nmaak_file\n\n')
 	rooster = stok_rooster.split('\n')
 	rooster = [r.split('		') for r in rooster]
 	tekst = '''<head>
@@ -204,7 +204,7 @@ caption {
 			regel += i
 		tekst += '<tr>'+regel+'</tr>\n'
 	tekst += '</table>'
-	print(tekst)
+	#print(tekst)
 	
 	file = open("index.html", "w")
 	file.write(tekst)
@@ -212,7 +212,5 @@ caption {
 
 
 #info_dict, user_lijst, dagen = 
-main_loop()
+#main_loop()
 #print(info_dict, user_lijst, dagen)
-
-input("Einde")
