@@ -1,6 +1,8 @@
 #Created by Bas het Beest
 #©CPL Code Productions
 
+import ast
+
 def ontleed_rooster(rooster):
 	vorig_enter = 0
 	regel_lijst = []
@@ -25,7 +27,9 @@ def main_loop():
 	info = file.read()
 	info_dict = {}
 	user_lijst = []
-	begin = 0
+	begin = info.find("!*!") + 4
+	namen_lijst = info[:begin - 4]
+	namen_lijst = ast.literal_eval(namen_lijst)
 	while info.find("!*!", begin) != -1:
 		eind = info.find("!*!", begin)
 		rooster = info[begin:eind]
@@ -35,7 +39,7 @@ def main_loop():
 		info_dict[user] = regel_lijst
 	dagen = bereken_dagen(info_dict, user_lijst)
 	stok_dict = vergelijk_uren(info_dict, user_lijst, dagen)
-	stok_rooster = stokbroodrooster(stok_dict, dagen, user_lijst)
+	stok_rooster = stokbroodrooster(stok_dict, dagen, user_lijst, namen_lijst)
 	maak_file(stok_rooster)
 	return# info_dict, user_lijst, dagen
 
@@ -136,15 +140,21 @@ def split_tu(tu):
 		#input("komma")
 	return tu_list
 
-def stokbroodrooster(stok_dict, dagen, user_lijst):
-    stok_rooster = ""
+def stokbroodrooster(stok_dict, dagen, user_lijst, namen_lijst):
+    stok_rooster = "\t\t"
     for dag in dagen:
         stok_rooster += "\t\t" + dag[0] + dag[1]
-    print(stok_rooster)
-    input("stokrooster")
-    for user in user_lijst:
+    #print(stok_rooster)
+    #input("stokrooster")
+    for u in range(len(user_lijst)):
         stok_rooster += "\n"
-        stok_rooster += user
+        user = user_lijst[u]
+	if u < len(namen_lijst) - 1:
+	    naam = namen_lijst[u+1]
+	else:
+	    naam = namen_lijst[0]
+	stok_rooster += user
+	stok_rooster += "\t\t" + naam
         for i in range(6):
             dag = dagen[i]
             if i == 5:
@@ -165,8 +175,8 @@ def stokbroodrooster(stok_dict, dagen, user_lijst):
                             stok_rooster += str(tu)
                         else:
                             stok_rooster += ", " + str(tu)
-        print(stok_rooster)
-        input("test")
+        #print(stok_rooster)
+        #input("test")
     return stok_rooster
 
 def maak_file(stok_rooster):
