@@ -201,7 +201,8 @@ caption {
 	file.close()
 
 
-info_dict, user_lijst, dagen = main_loop()
-print(info_dict, user_lijst, dagen)
+#info_dict, user_lijst, dagen = 
+main_loop()
+#print(info_dict, user_lijst, dagen)
 
 input("Einde")
